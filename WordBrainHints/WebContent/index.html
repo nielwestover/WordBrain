@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>WordBrain Hints</title>
+<link rel="stylesheet" type="text/css" href="http://slc-ub-v6-dev:8888/TDWWebLibraries/css/rmc.css">
+<script type="text/javascript" src="javascript/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(onload);
+		
+	function onload() {
+		$.ajax({
+			url : "rest/auth/packInfo" ,
+			success : function(data) {
+				var select = $("#packSelect")[0];
+				select.options.length = 0; // clear out existing items
+				for(var i=0; i < data.length; i++) {
+				    var d = data[i];
+				    select.options.add(new Option(d.pack, d.count));
+				}
+				packChanged();
+			},
+			dataType : "json",			
+		});
+	}
+	var hintNum = 0;
+	function packChanged()
+	{
+		reset();
+		var select = $("#packSelect")[0];
+		var pack = select.options[select.selectedIndex];		
+		var levels = $("#levels")[0];
+		for (a in levels.options) { levels.options.remove(0); }
+		for (i = 0; i < pack.value; ++i)
+			levels.options.add(new Option(i+1, i));
+	}
+	function levelChanged()
+	{
+		reset();
+		
+	}
+	
+	function reset(){
+		hintNum = 0;
+		hints.value = "";
+	}
+	
+	function nextLevel()
+	{
+		var levels = $("#levels")[0];
+		levels.selectedIndex++;
+		levelChanged();
+	}
+	function getHint()
+	{
+		var select = $("#packSelect")[0];
+		var pack = select.options[select.selectedIndex];		
+		var levels = $("#levels")[0];
+		var level = levels.options[levels.selectedIndex];
+		var url = "rest/auth/hint/" + pack.label + "/" + level.value + "/" + hintNum;
+		$.ajax({
+			url : url,
+			success : function(data) {
+				var hints = $("#hints")[0];
+				var strChar = data.split('');
+				for(i = 1; i< strChar.length ; ++i)
+					strChar[i] = "-";
+				hints.value =  hints.value + "Hint " + (hintNum + 1) + ": " + strChar.join("") + "\n";
+				hintNum++;
+			},
+			error: function (xhr, ajaxOptions, thrownError) {		        
+		        $("#error")[0].innerHTML = xhr.responseText;
+		        var hints = $("#hints")[0];
+				hints.value =  hints.value + "\nNo more hints";
+		      },
+				
+			
+			dataType : "json",			
+		});				
+	}
+</script>
+</head>
+<body>
+	Welcome - 
+	<span id="username">Unknown</span>	
+	<br />
+	WordBrain Hints
+	<br />
+	 <select id="packSelect" onchange="packChanged();" >	 
+	</select> 
+	<select id="levels" onchange="levelChanged();" >
+	</select> 
+	<br/>
+	<button onclick="getHint();">Get hint</button><button onclick="nextLevel();">  >  </button>
+	<br/>
+	<textarea rows="8" cols="18" id="hints">
+	</textarea>
+	<br />
+	<p id="error"></p>
+</body>
+</html>

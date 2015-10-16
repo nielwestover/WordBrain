@@ -1,0 +1,10 @@
+-Install Eclipse (See here: http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/marsr)
+-Make sure tomcat is installed (See the part about installing tomcat for eclipse here: http://eng-server/mediawiki/index.php/How_to_deploy_REST_Stop_in_Eclipse)
+-Install AWS SDK for Java (http://docs.aws.amazon.com/AWSToolkitEclipse/latest/GettingStartedGuide/tke_setup_install.html UNCHECK AWS SDK FOR Android if you do not have the Google Android Developer Tools For Eclipse installed
+-Unzip dynamodb_local_2015-07-16_1.0.zip into the directory of your choosing.  
+-Start up dynamo db with the command line: 
+	java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+-Create a self signed SSL certificate as described here (you will be able to find the referenced server.xml in Eclipse in the Package Explorere under (Servers/Tomcat 7 blah balh/server.xml)
+	https://tomcat.apache.org/tomcat-6.0-doc/ssl-howto.html
+-Start up server
+-Goto https://localhost:8443/AuthenticationExample/SignInPage.html
