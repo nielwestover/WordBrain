@@ -21,8 +21,6 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.google.gson.Gson;
-import com.tdw.auth.UserException;
-import com.tdw.auth.UserSummary;
 
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,16 +33,6 @@ public class AuthenticationRest {
 	private HttpServletRequest request;
 
 	Gson gson = new Gson();
-
-	@GET
-	@Path("/hello/{name}")
-	public String sayHello(@PathParam("name") String name) throws UserException {
-		UserSummary summary = new UserSummary();
-		summary.email = "my email yo";
-		summary.userName = name;
-		String j = gson.toJson(summary);
-		return j;
-	}
 
 	static AmazonDynamoDBClient dynamoDBClient;
 	static DynamoDB dynamoDB;
