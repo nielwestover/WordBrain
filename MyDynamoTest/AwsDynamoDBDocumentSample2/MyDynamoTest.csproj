@@ -81,20 +81,15 @@
         </Reference>
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="AWSSDK.DynamoDBv2, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-          <SpecificVersion>False</SpecificVersion>
-          <Private>True</Private>
-          <HintPath>..\..\..\..\..\..\..\Program Files (x86)\AWS Tools\Deployment Tool\AWSSDK.DynamoDBv2.dll</HintPath>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
     <Reference Include="AWSSDK.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files\AWS SDK for .NET\bin\Net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.DynamoDBv2">
+      <HintPath>C:\Program Files (x86)\AWS Tools\Deployment Tool\AWSSDK.DynamoDBv2.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Libraries\JSON.NET\Bin\Net45\Newtonsoft.Json.dll</HintPath>
